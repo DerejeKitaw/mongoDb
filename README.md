@@ -20,6 +20,7 @@
     export PATH
     restart terminal and mongod --version to check mongo version
 
+    for window set enviromental variable in advanced option
 
 # 3_Run mongoDB
 
@@ -98,3 +99,46 @@
         "windSpeed" : 12,
         "__v" : 0
     }
+
+# 10_Check current working database
+
+    > db
+    angularexpress
+
+# 11_Create new database mydb
+
+    > use mydb          --this will create mydb database if doesnt exist. 
+                          If exist it will switch to mydb
+    switched to db mydb
+
+    > db                --will list current working database
+    mydb
+
+    > show dbs          --mydb databsae is not listed because it do not have data
+    admin             0.000GB
+    angularexpress    0.000GB
+    angularfullstack  0.000GB
+    local             0.000GB
+
+# 12_Insert data
+
+    > db.mycollection.insert({"name":"Dereje"})
+    WriteResult({ "nInserted" : 1 })
+
+    > show dbs
+    admin             0.000GB
+    angularexpress    0.000GB
+    angularfullstack  0.000GB
+    local             0.000GB
+    mydb              0.000GB
+
+# 13_delete current database mydb
+
+    > db.dropDatabase()
+    { "dropped" : "mydb", "ok" : 1 }
+    
+    > show dbs
+    admin             0.000GB
+    angularexpress    0.000GB
+    angularfullstack  0.000GB
+    local             0.000GB
