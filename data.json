@@ -1,0 +1,18 @@
+([{
+        "StudentNo": "1",
+        "FirstName": "Dereje",
+        "LastName": "Kitaw",
+        "Age": "35"
+    },
+    {
+        "StudentNo": "2",
+        "FirstName": "Aman",
+        "LastName": "Abdisa",
+        "Age": "30"
+    },
+    {
+        "StudentNo": "3",
+        "FirstName": "Alex",
+        "LastName": "Yemam",
+        "Age": "40"
+    }])
