@@ -267,4 +267,37 @@
     $lse --less than or equal to
     $ne --not equal to
 
+# 21_and use comma
 
+    Search student first name Dereje and age 35
+    > db.students.find({"FirstName":"Dereje","Age":"35"}).pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Kitaw",
+        "Age" : "35"
+    }
+    > 
+# 22_or ({$or : [{},{},{}]})
+
+    > db.students.find({$or :[{"FirstName":"Dereje"},{"Age":"34"}]}).pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Kitaw",
+        "Age" : "35"
+    }
+    > 
+# 23_and or ({$or : [{},{},{}]})  --firstName Dereje or Age 20 or 35
+
+    > db.students.find({"FirstName":"Dereje", $or :[{"Age":"20"},{"Age":"35"}]}).pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Kitaw",
+        "Age" : "35"
+    }
+    > 
