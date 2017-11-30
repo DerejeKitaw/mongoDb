@@ -36,8 +36,65 @@
 
 # 4_Play with mongo once mongo works on the terminal
     [Doc](https://docs.mongodb.com/manual/crud/)
-    use my_db
-    db.users.insert({ "name": "Dereje", "email": "dereje.kitaw@gmail.com"})
-    db.users.find()
-    db.users.find().pretty()
-    db.users.find({"name": "dereje"}).pretty()
+    
+# 5_Show all databases
+
+    show dbs
+    > show dbs
+    admin             0.000GB
+    angularexpress    0.000GB
+    angularfullstack  0.000GB
+    local             0.000GB
+
+# 6_use angularexpress database
+
+    > use angularexpress
+    switched to db angularexpress
+    
+# 7_list all collections in angularexpress database
+
+    > show collections
+    counties
+    inverters
+    panels
+    users
+    
+# 8_What is inside collection counties?
+
+    > db.counties.find().pretty()
+    {
+        "_id" : ObjectId("59d712690aadb80c5d94dc65"),
+        "countyName" : "Baltimore",
+        "groundSnowLoad" : 25,
+        "rapidShutdown" : true,
+        "windSpeed" : 115,
+        "__v" : 0
+    }
+    {
+        "_id" : ObjectId("59d7132a0aadb80c5d94dc66"),
+        "countyName" : "Montgomery",
+        "groundSnowLoad" : 25,
+        "rapidShutdown" : true,
+        "windSpeed" : 115,
+        "__v" : 0
+    }
+    {
+        "_id" : ObjectId("59e19cc7ddab505381b056ce"),
+        "countyName" : "PG",
+        "groundSnowLoad" : 300,
+        "rapidShutdown" : true,
+        "windSpeed" : 12,
+        "__v" : 0
+    }
+
+# 9_Select PG counties
+
+    > db.counties.find({"countyName": "PG"}).pretty()
+    {
+        "_id" : ObjectId("59e19cc7ddab505381b056ce"),
+        "countyName" : "PG",
+        "groundSnowLoad" : 300,
+        "rapidShutdown" : true,
+        "windSpeed" : 12,
+        "__v" : 0
+    }
