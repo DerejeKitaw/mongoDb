@@ -1,0 +1,13 @@
+[
+    '{{repeat(5, 7)}}',
+    {
+      _id: '{{objectId()}}',
+       id: '{{index()}}',
+      StudentNo: '{{index()}}',
+      FirstName: '{{firstName()}}',
+      LastName: '{{flastName()}}',
+      age: '{{integer(20, 40)}}',
+      gender: '{{gender()}}'
+  
+    }
+  ]

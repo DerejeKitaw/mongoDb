@@ -147,10 +147,13 @@
 
     > use mydb
         switched to db mydb
+
     > db.createCollection("myCollection")           --one way to create a collection
         { "ok" : 1 }
+
     > show collections
         myCollection
+        
     > db.myCollection2.insert({"name":"Dereje"})    --Another way to create a collection
         WriteResult({ "nInserted" : 1 })
     > show collections
@@ -301,3 +304,337 @@
         "Age" : "35"
     }
     > 
+
+# 24_Update student with _id=5a1f96adde48cb60870862f8 to last name to Codder
+    
+    > db.students.update(
+        {
+            "_id": ObjectId("5a1f96adde48cb60870862f8")
+        },
+        {
+            $set : {"LastName" : "Codder"}
+        }
+    )
+    WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+    > db.students.find().pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Codder",
+        "Age" : "35"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+        "StudentNo" : "2",
+        "FirstName" : "Aman",
+        "LastName" : "Abdisa",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+        "StudentNo" : "3",
+        "FirstName" : "Alex",
+        "LastName" : "Yemam",
+        "Age" : "40"
+    }
+    > 
+
+# 25_Update multiple row
+
+    > db.students.update(
+        {
+            "Age": "30"
+        },
+        {
+            $set : {"LastName" : "Young"}
+        },
+        {
+            multi : true
+        }
+    )
+
+    WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+    db.students.find().pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Codder",
+        "Age" : "35"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+        "StudentNo" : "2",
+        "FirstName" : "Aman",
+        "LastName" : "Young",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+        "StudentNo" : "3",
+        "FirstName" : "Alex",
+        "LastName" : "Yemam",
+        "Age" : "40"
+    }
+    > 
+
+# 26_update existing data using save. Save used to insert and update existing data
+
+    > db.students.save(
+        {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    )
+
+    WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+    db.students.find().pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+        "StudentNo" : "2",
+        "FirstName" : "Aman",
+        "LastName" : "Young",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+        "StudentNo" : "3",
+        "FirstName" : "Alex",
+        "LastName" : "Yemam",
+        "Age" : "40"
+    }
+    > 
+
+# 27_Create new data using save. Save used to insert and update existing data
+     > db.students.save(
+        {
+        "_id" : ObjectId("5a1f96adde48cb60870862fd"),
+        "StudentNo" : "5",
+        "FirstName" : "Winta",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    )
+    WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("5a1f96adde48cb60870862fd")
+    })
+
+    > db.students.find().pretty()
+
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+        "StudentNo" : "2",
+        "FirstName" : "Aman",
+        "LastName" : "Young",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+        "StudentNo" : "3",
+        "FirstName" : "Alex",
+        "LastName" : "Yemam",
+        "Age" : "40"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fd"),
+        "StudentNo" : "5",
+        "FirstName" : "Winta",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    > 
+
+# 27_Delete document. Warning db.students.remove() will remove all data
+
+    > db.students.remove(
+        {
+        "_id" : ObjectId("5a1f96adde48cb60870862fd"),
+    }
+    )
+
+    WriteResult({ "nRemoved" : 1 })
+    > db.students.find().pretty()
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f8"),
+        "StudentNo" : "1",
+        "FirstName" : "Dereje",
+        "LastName" : "Tesfaye",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+        "StudentNo" : "2",
+        "FirstName" : "Aman",
+        "LastName" : "Young",
+        "Age" : "30"
+    }
+    {
+        "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+        "StudentNo" : "3",
+        "FirstName" : "Alex",
+        "LastName" : "Yemam",
+        "Age" : "40"
+    }
+    > 
+
+
+
+# 28_Delete one document. Warning db.students.remove() will remove all data
+    --1 will restrict to delete only one document   
+      even though multiple student with age 30
+    > db.students.remove(
+        {
+        "Age" : "30",
+        },1                         
+        )
+        WriteResult({ "nRemoved" : 1 })
+
+        > db.students.find().pretty()
+
+        {
+            "_id" : ObjectId("5a1f96adde48cb60870862f9"),
+            "StudentNo" : "2",
+            "FirstName" : "Aman",
+            "LastName" : "Young",
+            "Age" : "30"
+        }
+        {
+            "_id" : ObjectId("5a1f96adde48cb60870862fa"),
+            "StudentNo" : "3",
+            "FirstName" : "Alex",
+            "LastName" : "Yemam",
+            "Age" : "40"
+        }
+        > 
+# 29_Projection - Means selecting only necessary data rather than selecting whole of the data of a document >db.COLLECTION_NAME.find({},{KEY:1})
+
+    db.students.find(
+        {},
+        {"FirstName" :1}
+    )
+
+    { "_id" : ObjectId("5a1f96adde48cb60870862f9"), "FirstName" : "Aman" }
+    { "_id" : ObjectId("5a1f96adde48cb60870862fa"), "FirstName" : "Alex" }
+    > 
+
+    Always _id will be display
+
+    ## remove _id
+
+    db.students.find(
+        {},
+        {"FirstName" :1 , "_id" : 0}
+    )
+
+    { "FirstName" : "Aman" }
+    { "FirstName" : "Alex" }
+    > 
+
+# 30_Sort , Skip, and Limit
+
+    db.students.find(
+        {},
+        {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+    )
+
+    { "StudentNo" : "2", "FirstName" : "Aman" }
+    { "StudentNo" : "3", "FirstName" : "Alex" }
+    > 
+
+    ## limit output only one
+        db.students.find(
+            {},
+            {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+        ).limit(1)
+
+        { "StudentNo" : "2", "FirstName" : "Aman" }
+        > 
+    ## Skip first data
+        db.students.find(
+            {},
+            {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+        ).skip(1)
+
+        { "StudentNo" : "3", "FirstName" : "Alex" }
+        > 
+
+    ## skip the first result and show the next three result
+
+        db.students.find(
+            {},
+            {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+        ).skip(1).limit(3)
+
+        { "StudentNo" : "3", "FirstName" : "Alex" }
+        > 
+    ## sort Acending by first name
+
+        db.students.find(
+            {},
+            {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+        ).sort({"FirstName" : 1})
+
+        { "StudentNo" : "3", "FirstName" : "Alex" }
+        { "StudentNo" : "2", "FirstName" : "Aman" }
+        > 
+
+    ## Sort Decending
+
+        db.students.find(
+            {},
+            {"StudentNo" :1 , "FirstName" : 1, "_id" :0}
+        ).sort({"FirstName" : -1})
+
+        { "StudentNo" : "2", "FirstName" : "Aman" }
+        { "StudentNo" : "3", "FirstName" : "Alex" }
+        > 
+# 31_Indexing - Create index for uniq field
+
+    ## To see the use of index create 10,000,000 students
+
+    use temp
+    for(i=0; i <10000000; i++){
+        db.posts.insert({"student_id" : i, "name" : "mark});
+    }
+
+    ## To see data
+    db.posts.find()
+
+    ## Find student_id=1000 and see how long it takes befor indexing
+    db.posts.find({"student_id":1000});
+
+    ## Adding index
+    db.posts.ensureIndex({"student_id" :1);
+
+    ## Find student_id=1000 and see how long it takes after indexing
+    db.posts.find({"student_id":1000});
+
+    ## removing index
+    db.posts.dropIndex("student_id" :1);
+
+# 32_Aggregation - groups multiple elements from different db
+
+    
+
