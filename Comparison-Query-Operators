@@ -1,0 +1,17 @@
+```
+eq (equal)
+ne (not equal)
+gt(greater than)
+gte (greater than)
+lt (less than)
+lte (less than or equal to)
+in
+nin (not in)
+
+.find (price:10) // price =10
+.find (price: {$gt:10}) // price greater than 10
+.find (price: {$gte:10}) // price greater than or equal to 10
+.find (price: {$gte:10, $lte:20}) // price greater than or equal to 10 and less than or equal to 20
+.find (price: {$in: [10, 15, 20]}) // price with 10 , 15 , 20
+
+```
