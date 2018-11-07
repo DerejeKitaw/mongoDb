@@ -1,0 +1,9 @@
+```
+.find()
+.or ([{ name:'Dereje'}, { isOnLine: true}])  // get with name Dereje or isOnLine true
+
+
+.find()
+.and([{ name:'Dereje'}, { isOnLine: true}])  // get with name Dereje and isOnLine true
+
+```
